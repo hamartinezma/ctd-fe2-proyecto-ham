@@ -7,7 +7,7 @@ import {
   limpiar,
   obtenerEstadoDelPedido,
   obtenerCitaDeLaAPI,
-} from "./citaSlice";
+} from "./quoteSlice";
 import { obtenerMensaje } from "./utils";
 
 function Cita() {

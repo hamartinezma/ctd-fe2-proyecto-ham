@@ -5,17 +5,16 @@ export interface INoticias {
   fecha: Date;
   esPremium: boolean;
   imagen: string;
+  fuente: string;
 }
 
-const simularTiempoTranscurrido: (decrementMiliseconds: number) => Date = (
-  decrementMiliseconds
-) => {
+const simularTiempoTranscurrido = (decrementMiliseconds: number): Date => {
   const time = new Date();
   time.setMilliseconds(time.getMilliseconds() - decrementMiliseconds);
   return time;
 };
 
-const data = [
+const data: INoticias[] = [
   {
     id: 1,
     titulo: "Los Simpson 'predijeron' escasez de combustible",

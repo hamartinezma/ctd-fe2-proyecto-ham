@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import { API_URL } from "../app/constants";
 
 interface QuoteService {
   getQuote(character: string): Promise<any>;
@@ -18,6 +19,7 @@ class SimpsonsQuoteService implements QuoteService {
       };
     } else {
       return {
+        
         quote: "Thank you. Come again.",
         character: "Apu Nahasapeemapetilon",
         image:
@@ -29,12 +31,11 @@ class SimpsonsQuoteService implements QuoteService {
 }
 
 export const handlers = [
-  rest.get("https://thesimpsonsquoteapi.glitch.me/quotes", async (req, res, ctx) => {
+  rest.get(`${API_URL}`, async (req, res, ctx) => {
     const character = req.url.searchParams.get("character");
 
     if (!character) {
       const quoteService: QuoteService = new SimpsonsQuoteService();
-
       try {
         const quote = await quoteService.getQuote("Homer Simpson");
         return res(ctx.status(200), ctx.json([quote]));

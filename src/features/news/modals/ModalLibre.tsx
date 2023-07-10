@@ -1,24 +1,27 @@
-import { INoticiasNormalizadas } from "../types";
-import {
-  DescripcionModal,
-  ImagenModal,
-  TituloModal,
-  CotenedorTexto,
-} from "../styled";
+import React from 'react';
+import { TarjetaModal, DescripcionModal, ImagenModal, TituloModal, ContenedorTexto, CloseButton } from '../styled';
+import { CloseButton as Close } from '../../../assets';
+import useModal from '../contextModal';
 
-interface IProps {
-  noticia: INoticiasNormalizadas;
-}
+const ModalFree: React.FC = () => {
+  const { modal, setModal } = useModal();
 
-const ModalNoticias = ({ noticia }: IProps) => {
+  const closeModal = () => {
+    setModal(null);
+  };
+
   return (
-    <>
-      <ImagenModal src={noticia.imagen} alt="news-image" />
-      <CotenedorTexto>
-        <TituloModal>{noticia.titulo}</TituloModal>
-        <DescripcionModal>{noticia.descripcion}</DescripcionModal>
-      </CotenedorTexto>
-    </>
+    <TarjetaModal>
+      <CloseButton onClick={closeModal}>
+        <img src={Close} alt="close-button" />
+      </CloseButton>
+      <ImagenModal src={modal?.imagen} alt="news-image" />
+      <ContenedorTexto>
+        <TituloModal>{modal?.titulo}</TituloModal>
+        <DescripcionModal>{modal?.descripcion}</DescripcionModal>
+      </ContenedorTexto>
+    </TarjetaModal>
   );
 };
-export default ModalNoticias;
+
+export default ModalFree;

@@ -1,32 +1,21 @@
-import { TarjetaModal, ContenedorModal } from "../styled";
-import { INoticiasNormalizadas, IModal } from "../types";
-import { Dispatch, SetStateAction } from "react";
-import ModalPremium from "./ModalPremium";
-import ModalLibre from "./ModalLibre";
-import {ModalBotonCerrar} from "./BotonsOptions";
+import React from 'react';
+import ModalFree from './ModalLibre';
+import ModalPremium from './ModalPremium';
+import useModal from '../contextModal';
+import { ContenedorModal } from '../styled';
 
-interface IProps {
-  noticia: INoticiasNormalizadas | null;
-  setModal: Dispatch<SetStateAction<IModal>>;
-}
+const ModalNoticias: React.FC = () => {
+    const { modal } = useModal();
 
-const ModalNoticias = ({ noticia, setModal }: IProps) => {
-  return (
-    <>
-      {noticia && (
-        <ContenedorModal>
-          <TarjetaModal>
-            <ModalBotonCerrar setModal={setModal} />
-            {noticia.esPremium ? (
-              <ModalPremium setModal={setModal} />
-            ) : (
-              <ModalLibre noticia={noticia} />
+    return (
+        <>
+            {modal && (
+                <ContenedorModal>
+                    {modal?.esPremium ? <ModalPremium /> : <ModalFree />}
+                </ContenedorModal>
             )}
-          </TarjetaModal>
-        </ContenedorModal>
-      )}
-    </>
-  );
+        </>
+    );
 };
 
 export default ModalNoticias;

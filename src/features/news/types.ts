@@ -1,14 +1,14 @@
 export interface INoticiasNormalizadas {
-    id: number;
-    titulo: string;
-    esPremium: boolean;
-    imagen: string;
-    descripcionCorta?: string;
-    descripcion: string;
-    fecha: number | string;
-  }
-  
+  id: number;
+  titulo: string;
+  descripcion: string;
+  fecha: number | string;
+  esPremium: boolean;
+  imagen: string;
+  descripcionCorta?: string;
+}
+
 export interface IModal {
-    visible: boolean;
-    noticia: INoticiasNormalizadas | null;
-  }
+  modal: INoticiasNormalizadas | null,
+  setModal: (modal: INoticiasNormalizadas | null) => void;
+}

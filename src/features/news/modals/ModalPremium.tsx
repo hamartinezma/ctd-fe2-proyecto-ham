@@ -1,31 +1,42 @@
-import {BotonSubscripcion} from "./BotonsOptions";
-import { SuscribeImage } from "../../../assets";
-import { IModal } from "../types";
-import { Dispatch, SetStateAction } from "react";
-import {
-  DescripcionModal,
-  ImagenModal,
-  TituloModal,
-  CotenedorTexto,
-} from "../styled";
+import React, { useEffect, useRef } from 'react';
+import { TarjetaModal, DescripcionModal, ImagenModal, TituloModal, ContenedorTexto } from '../styled';
+import { SuscribeImage } from '../../../assets';
+import useModal from '../contextModal';
+import ButtonsOptions from '../modals/buttons/ButtonsOptions';
 
-interface IProps {
-  setModal: Dispatch<SetStateAction<IModal>>;
-}
+const ModalPremium: React.FC = () => {
+  const { setModal } = useModal();
+  const timerRef = useRef<NodeJS.Timeout>();
 
-const ModalPremium = ({ setModal }: IProps) => {
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      alert('Suscripto!');
+      setModal(null);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, [setModal]);
+
+  const handleSuscribir = () => {
+    clearTimeout(timerRef.current);
+    alert('Suscripto!');
+    setModal(null);
+  };
+
   return (
-    <>
+    <TarjetaModal>
+      <ButtonsOptions handleSuscribir={handleSuscribir} />
       <ImagenModal src={SuscribeImage} alt="mr-burns-excelent" />
-      <CotenedorTexto>
+      <ContenedorTexto>
         <TituloModal>Suscríbete a nuestro Newsletter</TituloModal>
         <DescripcionModal>
-          Suscríbete a nuestro newsletter y recibe noticias de nuestros
-          personajes favoritos.
+          Suscríbete a nuestro newsletter y recibe noticias de nuestros personajes favoritos.
         </DescripcionModal>
-        <BotonSubscripcion setModal={setModal} />
-      </CotenedorTexto>
-    </>
+      </ContenedorTexto>
+    </TarjetaModal>
   );
 };
+
 export default ModalPremium;
